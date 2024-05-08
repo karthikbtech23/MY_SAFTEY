@@ -2,9 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from werkzeug.serving import WSGIRequestHandler
 import sqlite3
 
-app = Flask(__name__)
-app.secret_key = 'karthik'
-
 connection = None
 cursor = None
 
@@ -138,7 +135,6 @@ def delete_criminal():
         return redirect(url_for('index'))
 
 
-if __name__ == '__main__':
+
     # Use a single-threaded Flask server to avoid SQLite threading issues
     WSGIRequestHandler.protocol_version = "HTTP/1.1"
-    app.run(debug=True, threaded=False)
