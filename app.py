@@ -82,8 +82,8 @@ def update():
         crime = request.form['update_crime']
         location = request.form['update_location']
         status = request.form['update_status']
+
         
-        # Create the SET part of the SQL query dynamically based on the provided values
         set_values = []
         bind_values = []
         if name:
@@ -104,17 +104,14 @@ def update():
         if status:
             set_values.append("status=?")
             bind_values.append(status)
-        
-        # Construct the SET clause for the SQL query
+
         set_clause = ", ".join(set_values)
-        
-        # Construct the SQL query
+
         query = "UPDATE records SET {} WHERE id=?".format(set_clause)
         
-        # Execute the query and commit changes
         try:
-            bind_values.append(criminal_id)  # Add criminal_id to the bind_values
-            cursor.execute(query, tuple(bind_values))  # Convert bind_values to tuple
+            bind_values.append(criminal_id) 
+            cursor.execute(query, tuple(bind_values)) 
             connection.commit()
             flash("Criminal record updated successfully!", "success")
         except Exception as e:
@@ -139,6 +136,5 @@ def delete_criminal():
 
 
 if __name__ == '__main__':
-    # Use a single-threaded Flask server to avoid SQLite threading issues
     WSGIRequestHandler.protocol_version = "HTTP/1.1"
     app.run(debug=True, threaded=False)
