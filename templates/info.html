@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Safety</title>
+<style>
+  /* Style for header */
+  header {
+    overflow-x: auto; 
+    background-color: #233245;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+  }
+  
+  /* Style for logo/image */
+  .logo {
+    max-width: 200px;
+    display: inline-block;
+    margin: 0 auto;
+  }
+  .menu-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: .4s ease;
+  }
+
+  .menu-icon:hover{
+    border-color: #fff;
+  }
+
+  .menu-icon .line {
+    width: 30px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+  }
+  body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  .footer {
+        overflow-x: auto; 
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #233245;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+        flex-shrink: 0;
+        margin-top: auto;
+    }
+  /* Styles for forms */
+  form {
+    display: block;
+    text-align: left;
+    margin-top: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  input[type="submit"] {
+    width: 100%;
+    padding: 12px 28px;
+    background: #233245;
+    border: 2px solid  #233245;
+    border-radius: 4px;
+    color: #eaeaea;
+    letter-spacing: .4px;
+    font-weight: 600;
+    transition: .4s ease;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background: transparent;
+    color:  #233245;
+  }
+
+  /* Styles for tables */
+   table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  th {
+    background-color: #233245;
+    color: #fff;
+  }
+  .section {
+      width: 80%;
+      margin: 20px auto;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center; /* Center the content */
+      align-items: center;
+    }
+   /* Styles for big box within section */
+   .big-box {
+     overflow-x: auto; 
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: space-between;
+     align-items: center;
+   }
+   .small-box {
+   width: 80%;
+   overflow-x: auto; 
+   margin: 20px auto; /* Center the box horizontally */
+   padding: 20px;
+   background-color: #f5f5f5;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+   text-align: center; /* Center the content */
+ }
+.small-box1{
+    width: 70%;
+    height: 45%; /* Adjust height as needed */
+    border: 1px solid black;
+    margin-bottom: 20px; /* Add margin for spacing */
+    padding: 10px; /* Add padding for content */
+    box-sizing: border-box; /* Include padding in width */
+}
+    
+    .section {
+      display: none; /* Hide all sections by default */
+    }
+
+    .active {
+      display: block; /* Show the active section */
+    }
+  .button{
+    display:inline-block;
+    width:fit-content;
+    padding: 12px 28px;
+    background: #233245;
+    border: 2px solid #233245 ;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    color: #eaeaea;
+    letter-spacing: .4px;
+    font-weight: 600;
+    transition: .4s ease;
+}
+.button:hover{
+    background: transparent;
+    color: #233245;
+}
+/* Styles for navigation */
+  .navigation {
+    overflow-x: auto; 
+    background-color: #233245;
+    box-shadow: 0px 4px 10px rgba(35, 50, 69, 0.5);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  .navigation button {
+    overflow-x: auto; 
+    padding: 12px 28px;
+    background-color: #233245;
+    border: 1 solid #000000;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .navigation button:hover {
+    color: #fff;
+    background-color:#26374c;
+    border-color: #26374c;
+  }
+  .slide-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 250px;
+    height: 100%;
+    background-color: #ffffff;
+    padding: 20px;
+    transition: left 0.3s;
+    z-index: 2;
+}
+
+.login{
+    position: absolute;
+    max-width: 50px;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: .4s ease;
+  }
+.slide-menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.slide-menu ul li {
+    margin-bottom: 10px;
+}
+
+.slide-menu ul li a {
+    color: #26374c;
+    text-decoration: none;
+}
+
+.show-menu {
+    left: 0;
+}       
+.hidden {
+    display: none;
+  }
+.close-menu {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+  }
+
+  .show-menu .close-menu {
+      display: block; 
+  }
+  .message {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .message.success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  .message.danger {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  .message.warning {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  .message.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+  }
+
+
+</style>
+</head>
+<body>
+
+  <header>
+    <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo" class="logo" onclick="goToHome()">
+    <img src="{{ url_for('static', filename='account_icon3.png')}}" alt="login" class="login" onclick="goToProfile()">
+    <div class="menu-icon" onclick="toggleMenu()">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <nav class="slide-menu">
+      <span class="close-menu" onclick="toggleMenu()">&#10094;</span>
+      <ul>
+        <li><a href="{{ url_for('home_page') }}">Home</a></li>
+        <li><a href="{{ url_for('database') }}">Database</a></li>
+        <li><a href="{{ url_for('aboutus') }}">About</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+        <li><a href="{{ url_for('emergency') }}">SOS</a></li>
+      </ul>
+    </nav>
+  </header>
+<body>
+
+    <div class="navigation">
+    <button class="button" onclick="showSection('section1')">Add Records</button>
+    <button class="button" onclick="showSection('section2')">Search Records</button>
+    <button class="button" onclick="showSection('section3')">Delete Records</button>
+    <button class="button" onclick="showSection('section4')">Update Records</button>
+    <button class="button" onclick="showSection('section5')">All Records</button>
+    </div>
+    <div class="small-box" style="text-align:left;">
+    <h3>MySafety Criminal Database Management:</h3>
+    <h5>Use the navigation menu to seamlessly access different sections</h5>
+    <h5>Maintain a structured approach to database management, adhering to legal and regulatory requirements for handling sensitive information.</h5>
+</div>
+    
+    <div id="section1" class="section">
+      <!-- Content for section 1 -->
+      <h2>Add Record</h2>
+      <div class="big-box">
+          <div class="small-box">
+            <body>
+                <form action="/add_criminal" method="POST">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required><br>
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" required><br>
+                    <label for="blood_group">Blood Group:</label>
+                    <select id="blood_group" name="blood_group" required>
+                      <option value="A+">A+</option>
+                      <option value="A-">A-</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="AB-">AB-</option>
+                      <option value="O+">O+</option>
+                      <option value="O-">O-</option>
+                    </select><br>
+                    <label for="crime">Crime:</label>
+                    <input type="text" id="crime" name="crime" required><br>
+                    <label for="area_of_crime">Area Of Crime:</label>
+                    <input type="text" id="area_of_crime" name="area_of_crime" required><br>
+                    <label for="state_of_crime">State Of Crime:</label>
+                    <input type="text" id="state_of_crime" name="state_of_crime" required><br>
+                    <label for="status">Status:</label>
+                    <select id="status" name="status" required>
+                      <option value="In-Trial">In-Trial</option>
+                      <option value="Released">Released</option>
+                      <option value="Imprisoned">Imprisoned</option>
+                      <option value="NA">NA</option>
+                    </select><br><br>
+                    <input type="submit" value="Submit">
+                </form>
+          
+            </div>
+            </body>
+          </div>
+    </div>
+  
+    <div id="section2" class="section">
+      <!-- Content for section 2 -->
+      <h2>Search Record</h2>
+      <div class="big-box">
+          <div class="small-box">
+            <body>
+                <form action="/search_criminal" method="POST">
+                    <label for="search_by">Search by:</label>
+                    <select id="search_by" name="search_by" required>
+                      <option value="id">ID</option>
+                      <option value="name">Name</option>
+                      <option value="age">Age</option>
+                      <option value="blood_group">Blood Group</option>
+                      <option value="crime">Crime</option>
+                      <option value="area_of_crime">Area Of Crime</option>
+                      <option value="state_of_crime">State Of Crime</option>
+                      <option value="status">Status</option>
+                    </select><br>
+                    <label for="search_input">Search:</label>
+                    <input type="text" id="search_input" name="search_input" required><br>
+                    <input type="submit" value="Search">
+                </form>    
+                <br>
+            </body>
+            </div>
+          </div>
+        </div>
+    </div>
+  
+    <div id="section3" class="section">
+      <!-- Content for section 2 -->
+      <h2>Delete Record</h2>
+      <div class="big-box">
+          <div class="small-box">
+            <body>
+               <form action="/delete_criminal" method="POST">
+                   <label for="delete_by">Delete by:</label>
+                   <select id="delete_by" name="delete_by" required>
+                     <option value="id">ID</option>
+                     <option value="name">Name</option>  
+                   </select><br>
+                   <label for="delete_input">Delete:</label>
+                   <input type="text" id="delete_input" name="delete_input" required><br>
+                   <input type="submit" value="Delete">
+               </form>
+          
+            </body>
+            </div>
+          </div>
+        </div>
+    </div>
+  
+    <div id="section4" class="section">
+        <!-- Content for section 2 -->
+        <h2>Update Records</h2>
+        <div class="big-box">
+            <div class="small-box">
+              <body>
+                <form action="/update" method="POST">
+                    <label for="update_id">Criminal ID:</label>
+                    <input type="number" id="update_id" name="update_id" required><br>
+                    <label for="update_name">Name:</label>
+                    <input type="text" id="update_name" name="update_name"><br>
+                    <label for="update_age">Age:</label>
+                    <input type="number" id="update_age" name="update_age"><br>
+                    <label for="update_blood_group">Blood Group:</label>
+                    <select id="update_blood_group" name="update_blood_group">
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select><br>
+                    <label for="update_crime">Crime:</label>
+                    <input type="text" id="update_crime" name="update_crime"><br>
+                    <label for="update_area">Area Of Crime:</label>
+                    <input type="text" id="update_area" name="update_area"><br>
+                    <label for="update_area">State Of Crime:</label>
+                    <input type="text" id="update_state" name="update_state"><br>
+                    <label for="update_status">Status:</label>
+                    <select id="update_status" name="update_status">
+                        <option value="In-Trial">In-Trial</option>
+                        <option value="Released">Released</option>
+                        <option value="Imprisoned">Imprisoned</option>
+                        <option value="NA">NA</option>
+                    </select><br><br>
+                    <input type="submit" value="Update">
+                </form>
+              </body>
+              </div>
+            </div>
+          </div>
+      </div>
+  
+    <div id="section5" class="section">
+    <!-- Content for section 5 -->
+    <h2>Database Records</h2>
+    <div class="big-box">
+        <div class="small-box">
+            <h2>Criminal Records List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Blood Group</th>
+                        <th>Crime</th>
+                        <th>Area of Crime</th>
+                        <th>State of Crime</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td><h4>{{ record[0] }}</h4></td> <!-- Assuming ID is the first element in the record -->
+                        <td><h4>{{ record[1] }}</h4></td>
+                        <td><h4>{{ record[2] }}</h4></td>
+                        <td><h4>{{ record[3] }}</h4></td>
+                        <td><h4>{{ record[4] }}</h4></td>
+                        <td><h4>{{ record[5] }}</h4></td>
+                        <td><h4>{{ record[6] }}</h4></td>
+                        <td><h4>{{ record[7] }}</h4></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    </div>
+    </div>
+    
+    <div class="small-box" style=" text-align:left;">
+    <h3>Database Messages:</h3>
+    <!-- Flash message section -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="message {{ category }}">
+            <h5> {{ message }}<h5>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    </div>
+    
+
+    <script>
+      // JavaScript to show/hide sections
+      function showSection(sectionId) {
+        // Hide all sections
+        var sections = document.getElementsByClassName('section');
+        for (var i = 0; i < sections.length; i++) {
+          sections[i].classList.remove('active');
+        }
+  
+        // Show the selected section
+        document.getElementById(sectionId).classList.add('active');
+      }
+
+      
+  function goToHome() {
+    window.location.href = "{{ url_for('home_page') }}";  // Redirect to the home page route
+  }
+  function goToProfile() {
+    window.location.href = "{{ url_for('profile') }}";  // Redirect to the home page route
+  }
+  function toggleMenu() {
+    var menu = document.querySelector('.slide-menu');
+    menu.classList.toggle('show-menu');
+  }
+  document.addEventListener('click', function(event) {
+    var menu = document.querySelector('.slide-menu');
+    var menuIcon = document.querySelector('.menu-icon');
+    if (!menu.contains(event.target) && !menuIcon.contains(event.target)) {
+      menu.classList.remove('show-menu');
+    }
+  });
+
+    </script>
+  </body>
+<footer class="footer">
+    &copy; 2024 MySafety. All rights reserved.
+  </footer>
+      
+  </body>
+</html>

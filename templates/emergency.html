@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emergency Information</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  header {
+    overflow-x: auto; 
+    background-color: #233245;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+  }
+  .login {
+    position: absolute;
+    max-width: 50px;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: .4s ease;
+  }
+  .login:hover {
+    border-color: #fff;
+  }
+  .logo {
+    max-width: 200px;
+    display: inline-block;
+    margin: 0 auto;
+  }
+  .menu-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: .4s ease;
+  }
+  .menu-icon:hover {
+    border-color: #fff;
+  }
+  .menu-icon .line {
+    width: 30px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+  }
+  .container {
+    flex: 1;
+    max-width: 600px;
+    width: 90%;
+    margin: 50px auto 100px;
+    padding: 30px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  h2 {
+    text-align: center;
+    color: #233245;
+    margin-bottom: 20px;
+  }
+  .section {
+    margin-bottom: 30px;
+  }
+  .section h3 {
+    color: #495057;
+    margin-bottom: 10px;
+  }
+  .section p {
+    margin: 15px 0;
+    color: #6c757d;
+    text-align: left;
+  }
+  .section p strong {
+    color: #343a40;
+  }
+  .link-list {
+    margin-top: 10px;
+  }
+  .link-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  .link-list li {
+    margin-bottom: 5px;
+  }
+  .link-list a {
+    color: #233245;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .link-list a:hover {
+    color: #1a2736;
+    text-decoration: underline;
+  }
+  footer {
+    overflow-x: auto; 
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #233245;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    flex-shrink: 0;
+    margin-top: auto;
+  }
+  .slide-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 250px;
+    height: 100%;
+    background-color: #ffffff;
+    padding: 20px;
+    transition: left 0.3s;
+    z-index: 2;
+  }
+  .slide-menu ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  .slide-menu ul li {
+    margin-bottom: 10px;
+  }
+  .slide-menu ul li a {
+    color: #26374c;
+    text-decoration: none;
+  }
+  .show-menu {
+    left: 0;
+  }
+  .hidden {
+    display: none;
+  }
+  .close-menu {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  .show-menu .close-menu {
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      width: calc(100% - 20px);
+      margin: 10px;
+      padding: 20px;
+    }
+    .menu-icon {
+      top: 10px;
+      left: 10px;
+    }
+    .login {
+      top: 10px;
+      right: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo" class="logo" onclick="goToHome()">
+    <img src="{{ url_for('static', filename='account_icon3.png')}}" alt="login" class="login" onclick="goToProfile()">
+    <div class="menu-icon" onclick="toggleMenu()">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <nav class="slide-menu">
+      <span class="close-menu" onclick="toggleMenu()">&#10094;</span>
+      <ul>
+        <li><a href="{{ url_for('home_page') }}">Home</a></li>
+        <li><a href="{{ url_for('database') }}">Database</a></li>
+        <li><a href="{{ url_for('aboutus') }}">About</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+        <li><a href="{{ url_for('emergency') }}">SOS</a></li>
+      </ul>
+    </nav>
+  </header>
+
+<div class="container">
+  <h2>Emergency Information</h2>
+
+  <div class="section">
+    <h3>Safety Measures</h3>
+    <p>During emergencies, please ensure your safety by following these general measures:</p>
+    <ul>
+      <li>Stay calm and assess the situation.</li>
+      <li>Call emergency services immediately if necessary.</li>
+      <li>Follow instructions from authorities and emergency responders.</li>
+      <li>Stay informed and alert through official channels.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>Emergency Contacts</h3>
+    <p><strong>Police:</strong> <a href="tel:100" style="color: #233245;" target="_blank">100</a></p>
+    <p><strong>Ambulance:</strong> <a href="tel:102" style="color: #233245;" target="_blank">102</a></p>
+    <p><strong>Fire Department:</strong> <a href="tel:101" style="color: #233245;" target="_blank">101</a></p>
+  </div>
+
+  <div class="section">
+    <h3>Helpline Numbers</h3>
+    <p><strong>Domestic Violence Helpline:</strong> <a href="tel:181" style="color: #233245;" target="_blank">181</a></p>
+    <p><strong>Women's Helpline:</strong> <a href="tel:1091" style="color: #233245;" target="_blank">1091</a></p>
+    <p><strong>Child Helpline:</strong> <a href="tel:1098" style="color: #233245;" target="_blank">1098</a></p>
+  </div>
+
+  <div class="section">
+    <h3>Useful Links</h3>
+    <div class="link-list">
+      <ul>
+        <li><a href="https://digitalpolice.gov.in/" style="color: #233245;" target="_blank">Digital Police Website</a></li>
+        <li><a href="https://www.domesticshelters.org/en-in/domestic-abuse-help-in-india" style="color: #233245;" target="_blank">Domestic Violence Help</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer>
+  &copy; 2024 MySafety. All rights reserved.
+</footer>
+
+<script>
+  function toggleMenu() {
+    var menu = document.querySelector('.slide-menu');
+    menu.classList.toggle('show-menu');
+  }
+
+  document.addEventListener('click', function(event) {
+    var menu = document.querySelector('.slide-menu');
+    var menuIcon = document.querySelector('.menu-icon');
+    if (!menu.contains(event.target) && !menuIcon.contains(event.target) && !event.target.classList.contains('close-menu')) {
+      menu.classList.remove('show-menu');
+    }
+  });
+
+  function goToHome() {
+    window.location.href = "{{ url_for('home_page') }}";  // Redirect to the     home page route
+  }
+  function goToProfile() {
+    window.location.href = "{{ url_for('profile') }}";  // Redirect to the profile page route
+  }
+</script>
+
+</body>
+</html>
+
+    

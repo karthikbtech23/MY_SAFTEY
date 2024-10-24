@@ -1,0 +1,103 @@
+Write the experimental approach used in problem solving, add code and explain the functionality
+
+For creating a web application, where the user can get information about the crime that has been committed in his locality, the main important part is creating a database and its respective managing functions so that the user may retrieve the information that has been stored or modify the information as per the user or the administrator's needs. In consideration of the application's various functionalities, proper connections were established, as seen here.
+
+def get_db():
+    global connection, cursor
+    if connection is None:
+        connection = sqlite3.connect("criminal_records.db")
+        cursor = connection.cursor()
+        
+        cursor.execute("""CREATE TABLE IF NOT EXISTS records (
+                            id INTEGER PRIMARY KEY,
+                            name TEXT,
+                            age INTEGER,
+                            blood_group TEXT,
+                            crime TEXT,
+                            area_of_crime TEXT,
+                            state_of_crime TEXT,
+                            status TEXT)""")
+        
+        cursor.execute("""CREATE TABLE IF NOT EXISTS users (
+                            id INTEGER PRIMARY KEY,
+                            username TEXT UNIQUE,
+                            password TEXT,
+                            email TEXT UNIQUE)""")
+        connection.commit()
+    return connection, cursor
+
+By creating 2 tables, one for storing the information of the criminal records, and the other for the user login information, which is needed in order to access the web application, the web application can ensure that the users information is being maintained in respect of their access to the criminal records.
+
+Login/Signup Page
+
+The web application requires the user to create a profile so that their actions on the application can be monitored and safety of the web application can be ensured. By adding a condition 
+
+if 'username' in session:
+        return render_template('home.html')
+    else:
+        flash("Please log in to access this page.", "warning")
+        return redirect(url_for('login'))  # Redirect to login page if not logged in
+
+The user is required to be logged in to access the web application and its various features. In case the user has forgotten their password, they can reset it through the link given, which has options for the user to create a new profile if not done through the signup page or forgot password page. This page has access to the database, allowing the user to update their password with either their username or their email address, ensuring a smooth user experience.
+
+Home Page 
+
+After logging into the web application through a pre-existing ID or by creating a new one, the user is able to access the home page. Here, the user can get information about the crimes that have been registered in their locality by entering the locality name in the search bar. This action fetches the criminal records from the database.
+
+def quick_search():
+    if request.method == 'POST':
+        location = request.form['location']
+        connection, cursor = get_db()
+        cursor.execute("SELECT * FROM records WHERE area_of_crime LIKE ? OR state_of_crime LIKE ?", ('%' + location + '%', '%' + location + '%'))
+        records = cursor.fetchall()
+        if records:
+            flash("Search results:", "info")
+        else:
+            flash("No records found matching the search criteria.", "warning")
+        return render_template('home.html', records=records)
+
+The home page offers the user the ability to check their profile information and access different web pages through the links and options present in the body or the navigation menu. This allows the user to have seamless access to all the content the web application has to offer.
+
+User Profile
+
+The user profile can be accessed through the profile icon that is present in the header this allows the user to access their own information that is stored in the database and further allows them to modify their data if  any changes are required. This is being done by incorporating an update function so that it updates the contents of the users table in the database by finding the user profile which has been logged in. 
+
+This page ensures that the user has complete access to their own data in the web application.
+
+Database Page
+
+This page allows the user to have complete access to the criminal records table and provides them with the following functions 
+Add Record - Allows the user to Add a record to the database.
+Update Record - Allows the user to Update record through the ID of the criminal.
+Search Record - Allows the user to Search any record.
+Delete Record - Allows the user to Delete any record.
+All Records -  Displays all the records available in the database
+
+This page is meant for the users who have permission from the administrator as it contains sensitive information, The primary search bar on the home page serves as the main tool for regular users which fulfills the main purpose of this web application. 
+
+Contact Page 
+
+By having a contact page, it is possible to gather feedback from the user, which may help in improving the web application. Hence, the contact page allows the user to submit information that they want to convey to the administrators of the web application. This is done by having a separate database table which holds the information sent by respective users.
+
+These pages mentioned above are the main features of the web application and showcase the applications of the database. In addition to these, there are other web pages such as:
+
+About us 
+ 
+This page contains information about the webpage, showcasing its main features and purpose. It allows the user to grasp a better understanding of the web application.
+
+Safety Measures
+
+This page contains information about To-dos in case of emergency, emergency contact information, and important links, which allows the user to access it in case of an emergency. It serves as an information page, which allows users to gain knowledge about safety measures.
+
+
+My Safety web application was brought together by the webpages as mentioned above and still has much more potential and improvements which may ensure further security measures and enhance user experience.
+
+
+conclusion
+
+In conclusion, the MySafety web application serves as a valuable tool for enhancing users' awareness of crime in their vicinity. Through a simple search feature, users can access crime records by inputting their desired area, facilitating quick and efficient access to relevant information. Moreover, users have the capability to contribute to the database by adding new records or making necessary updates, thereby ensuring adaptability and user-driven customization.
+The emphasis on user security is evident through the requirement for users to log in with their created IDs. This measure enhances the overall security of the web application, safeguarding user information. The interface's user-friendly design enables seamless navigation, with easily accessible quick links providing swift access to all available content. Additionally, users retain control over their profile information, allowing them to manage their data effectively.
+The expansion of informative pages within the MySafety web application further bolsters its relevance and utility. These pages contribute meaningfully to users' understanding of safety-related topics and appropriate response strategies, augmenting the application's overall value.
+While the application excels in accessibility, features, and user-friendliness, opportunities for improvement remain, particularly in strengthening security protocols. Implementing measures to restrict database access to administrator-approved users is crucial for enhancing security as the application continues to evolve. This highlights the application's capacity for additional expansion and advancement.
+In summary, the MySafety web application fulfills its primary objective of raising awareness among users regarding their surroundings. By providing valuable insights and facilitating informed decision-making, the web application empowers users to take proactive measures to ensure their safety, fostering a sense of reassurance and peace of mind.
+

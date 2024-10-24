@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        /* General font settings */
+        body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  header {
+    overflow-x: auto; 
+    background-color: #233245;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+  }
+  .login {
+    position: absolute;
+    max-width: 50px;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: .4s ease;
+  }
+  .login:hover {
+    border-color: #fff;
+  }
+  .logo {
+    max-width: 200px;
+    display: inline-block;
+    margin: 0 auto;
+  }
+  .menu-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: .4s ease;
+  }
+  .menu-icon:hover {
+    border-color: #fff;
+  }
+  .menu-icon .line {
+    width: 30px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+  }
+
+  h2 {
+    text-align: center;
+    color: #233245;
+    margin-bottom: 20px;
+  }
+  .section {
+    margin-bottom: 30px;
+  }
+  .section h3 {
+    color: #495057;
+    margin-bottom: 10px;
+  }
+  .section p {
+    margin: 15px 0;
+    color: #6c757d;
+    text-align: left;
+  }
+  .section p strong {
+    color: #343a40;
+  }
+  .link-list {
+    margin-top: 10px;
+  }
+  .link-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  .link-list li {
+    margin-bottom: 5px;
+  }
+  .link-list a {
+    color: #233245;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .link-list a:hover {
+    color: #1a2736;
+    text-decoration: underline;
+  }
+  footer {
+    overflow-x: auto; 
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #233245;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    flex-shrink: 0;
+    margin-top: auto;
+  }
+  .slide-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 250px;
+    height: 100%;
+    background-color: #ffffff;
+    padding: 20px;
+    transition: left 0.3s;
+    z-index: 2;
+  }
+  .slide-menu ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  .slide-menu ul li {
+    margin-bottom: 10px;
+  }
+  .slide-menu ul li a {
+    color: #26374c;
+    text-decoration: none;
+  }
+  .show-menu {
+    left: 0;
+  }
+  .hidden {
+    display: none;
+  }
+  .close-menu {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  .show-menu .close-menu {
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      width: calc(100% - 20px);
+      margin: 10px;
+      padding: 20px;
+    }
+    .menu-icon {
+      top: 10px;
+      left: 10px;
+    }
+    .login {
+      top: 10px;
+      right: 10px;
+    }
+  }
+
+        /* Container styling */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: #233245;
+            font-size: 36px;
+            padding-top: 10px;
+        }
+
+        input, textarea, button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 18px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #5bd183;
+            border-width: 3px;
+        }
+
+        button {
+            background-color: #5bd183;
+            border: none;
+            border-radius: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        button:hover {
+            opacity: 80%;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 24px;
+            }
+            input, textarea, button {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo" class="logo" onclick="goToHome()">
+        <img src="{{ url_for('static', filename='account_icon3.png')}}" alt="login" class="login" onclick="goToProfile()">
+        <div class="menu-icon" onclick="toggleMenu()">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <nav class="slide-menu">
+          <span class="close-menu" onclick="toggleMenu()">&#10094;</span>
+          <ul>
+            <li><a href="{{ url_for('home_page') }}">Home</a></li>
+            <li><a href="{{ url_for('database') }}">Database</a></li>
+            <li><a href="{{ url_for('aboutus') }}">About</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+            <li><a href="{{ url_for('emergency') }}">SOS</a></li>
+          </ul>
+        </nav>
+      </header>
+    <div class="container">
+        <form action="{{ url_for('submit_form') }}" method="POST">
+            <h1>Contact Form</h1>
+            <label for="first">First Name</label>
+            <input type="text" id="first" name="first" placeholder="First Name" autocomplete="off" required>
+            <label for="last">Last Name</label>
+            <input type="text" id="last" name="last" placeholder="Last Name" autocomplete="off" required>
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Email Address" autocomplete="off" required>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Enter text" autocomplete="off" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+    <script>
+        function toggleMenu() {
+          var menu = document.querySelector('.slide-menu');
+          menu.classList.toggle('show-menu');
+        }
+      
+        document.addEventListener('click', function(event) {
+          var menu = document.querySelector('.slide-menu');
+          var menuIcon = document.querySelector('.menu-icon');
+          if (!menu.contains(event.target) && !menuIcon.contains(event.target) && !event.target.classList.contains('close-menu')) {
+            menu.classList.remove('show-menu');
+          }
+        });
+      
+        function goToHome() {
+          window.location.href = "{{ url_for('home_page') }}";  // Redirect to the home page route
+        }
+        function goToProfile() {
+          window.location.href = "{{ url_for('profile') }}";  // Redirect to the profile page route
+        }
+      </script>
+    <footer class="footer">
+        &copy; 2024 MySafety. All rights reserved.
+    </footer>
+</body>
+</html>
+
